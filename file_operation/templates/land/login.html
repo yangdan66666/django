@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户登录</title>
+		<style type="text/css">
+			h2{
+				color:#999;
+				border-bottom:1px solid #ccc;
+				font-weight:400;
+				padding-bottom:15px;
+				margin-bottom:30px;
+			}
+			.ds1{
+				margin-left:200px;
+				width:450px;
+			}
+			.d1{
+				height:auto;
+				width:auto;
+				padding-left:auto;
+				margin-top:20px;
+			}
+			.p1{
+				float:left;
+			}
+			.d1a{
+				width:600px;
+				height:80px;
+			}
+			#input1{
+				width:200px;
+				height:35px;
+				margin:8px 16px;
+			}
+			.d2a{
+				width:400px;
+				height:80px;
+				}
+			.p2{
+				float:left;
+			}
+			#input2{
+				width:200px;
+				height:35px;
+				margin:8px 16px;
+			}
+			.input3{
+				width:100px;
+				height:40px;
+				border:1px solid #7A8F66;
+				border-radius:5px;
+				text-align:center;
+				line-height:40px;
+				font-size:18px;
+				margin-left:30px;
+			}
+			a{
+				text-decoration:none;
+			}
+			#a2{
+				margin-left:30px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--页面顶部内容-->
+		<h2>欢迎进入登录</h2>
+		<div class='ds1'>
+			<form action="/land/login" method="post">
+				{% csrf_token %}
+				<div class='d1'>
+					<!--用户名称-->
+					<div class='d1a'>
+						<p class='p1'>用户名称</p>
+						<input id='input1' type="text" name="uname" placeholder='6~14位字符' maxlength=14>
+						<span style='color:#FF0000'>{{a}}</span><span style='color:#FF0000'>{{b}}</span>
+					</div>
+					<!--用户密码-->
+					<div class='d2a'>
+						<p class='p2'>用户密码</p>
+						<input id='input2' type="password" name="upwd" placeholder='6~18位字符' maxlength=18><a href="###">忘记密码?</a>
+					</div>
+					<!--用户注册-->
+					<a href="/land/register" id='a2'>新用户注册</a>
+					<!--登录-->
+					<input type="submit" value='登录' class='input3'>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

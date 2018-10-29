@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>系统页面</title>
+		<style type="text/css">
+			.d1{
+				width:1000px;
+				height:600px;
+			}
+			.d1a{
+				width:1000px;
+				height:100px;
+				border-bottom:1px solid #ccc;
+				border-left:1px solid #ccc;;
+			}
+			.d1b1{
+				height:500px;
+				width:300px;
+				float:left;
+				border-left:1px solid #ccc;
+				border-right:1px solid #ccc;
+				border-bottom:1px solid #ccc;
+			}
+			.d1b1>p{
+				margin-left:60px;
+			}
+			.d1b1>h3{
+				margin-left:60px;
+			}
+			h2{
+				float:left;
+				margin-left:50px;
+				color:#0000C6;
+			}
+			#p1{
+				color:#0000C6;
+				margin-left:800px;
+				margin-top:20px;
+			}
+			a{
+				text-decoration:none;
+			}
+			#a2{
+				text-decoration:none;
+				margin-left:725px;
+			}
+			.d1b2{
+				height:500px;margin-left:303px;
+				overflow-y:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='d1'>
+			<div class='d1a'>
+				<h2>首页面</h2>
+				<p id='p1'>hello:
+					<a href='##' id='a1'>{{nkname}}</a>
+				</p>
+				<p><a href="/land/login" id='a2'>切换登陆</a></p>
+				<span style="margin-left:305px;">注意:{{a}}</span>
+			</div>
+			<div class='d1b1'>
+				<h3>个人文件信息</h3>
+				<p><a href="/other/wother?uname={{uname}}&nkname={{nkname}}">我上传的文件</a></p>
+				<p><a href="/other/other?uname={{uname}}&nkname={{nkname}}">别人共享给我的文件</a></p>
+			</div>
+			<div class='d1b2'>
+				<table>
+					{% for i in L1 %}
+					<tr>
+						<td><a href="/other/open?i={{i.wenjian}}&uname={{uname}}">{{i.wenjian}}</a></td>
+						<td><form action="/other/wother" method="post">
+							{% csrf_token %}
+							<input type="hidden" name='wenjian' value='{{i.wenjian}}'>
+							<input type="hidden" name="uname" value={{uname}}>
+							共享给好友:<input type="text" name="yonghu">
+							<input type="submit" value='点击共享'>			
+						</form></td>
+						<td><form action='/other/open' method="post">
+							{% csrf_token %}
+							<input type="hidden" name="uname" value='{{uname}}'>
+							<input type="hidden" name='wenjian' value='{{i.wenjian}}'>
+							<input type="hidden" name="lujing" value='{{i.lujing}}'>
+							<input type="submit" value='点击下载'>
+						</form></td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

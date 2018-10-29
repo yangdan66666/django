@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>系统页面</title>
+		<style type="text/css">
+			.d1{
+				width:1000px;
+				height:600px;
+			}
+			.d1a{
+				width:1000px;
+				height:100px;
+				border-bottom:1px solid #ccc;
+				border-left:1px solid #ccc;;
+			}
+			.d1b1{
+				height:500px;
+				width:300px;
+				float:left;
+				border-left:1px solid #ccc;
+				border-right:1px solid #ccc;
+				border-bottom:1px solid #ccc;
+			}
+			.d1b1>p{
+				margin-left:60px;
+			}
+			.d1b1>h3{
+				margin-left:60px;
+			}
+			.d1b2{
+				width:700px;
+				height:500px;
+				margin-left:300px;
+			}
+			h2{
+				float:left;
+				margin-left:50px;
+				color:#0000C6;
+			}
+			#p1{
+				color:#0000C6;
+				margin-left:800px;
+				margin-top:20px;
+			}
+			a{
+				text-decoration:none;
+			}
+			#a2{
+				text-decoration:none;
+				margin-left:725px;
+			}
+			form{
+				margin-left:40px;
+				margin-top:10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='d1'>
+			<div class='d1a'>
+				<h2>首页面</h2>
+				<p id='p1'>hello:
+					<a href='##' id='a1'>{{nkname}}</a>
+				</p>
+				<p><a href="/land/login" id='a2'>切换登陆</a></p>
+			</div>
+			<div class='d1b1'>
+				<h3>个人文件信息</h3>
+				<p><a href="/other/wother?uname={{uname}}&nkname={{nkname}}">我上传的文件</a></p>
+				<p><a href="/other/other?uname={{uname}}&nkname={{nkname}}">别人共享给我的文件</a></p>
+			</div>
+			<div class='d1b2'>
+				<form method="post" action="/upload/upload" enctype="multipart/form-data">
+					{% csrf_token %}
+					<input type="hidden" name="nkname" value={{nkname}}>
+					<input type="hidden" name="uname" value={{uname}}>
+					上传文件：<input type="file" name="myfile" id='input1'>
+					<input type="submit" value="确认上传" id='input2'>
+					<p>{{a}}</p>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

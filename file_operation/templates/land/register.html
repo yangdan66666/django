@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户注册</title>
+		<style type="text/css">
+			h2{
+				color:#999;
+				border-bottom:1px solid #ccc;
+				font-weight:400;
+				padding-bottom:15px;
+				margin-bottom:30px;
+			}
+			.d1{
+				margin-left:200px;
+				width:400px;
+				padding-left:auto;
+				margin-top:20px;
+			}
+			.p1{
+				float:left;
+			}
+			.d1a{
+				width:400px;
+				height:80px;
+			}
+			#input1{
+				width:200px;
+				height:35px;
+				margin:8px 16px;
+			}
+			.d2a{
+				width:400px;
+				height:80px;
+				}
+			.p2{
+				float:left;
+			}
+			#input2{
+				width:200px;
+				height:35px;
+				margin:8px 16px;
+			}
+			.d3a{
+				width:400px;
+				height:80px;
+				}
+			.p3{
+				float:left;
+			}
+			#input3{
+				width:200px;
+				height:35px;
+				margin:8px 16px;
+			}
+			.d4a{
+				width:400px;
+				height:80px;
+				}
+			.p4{
+				float:left;
+			}
+			#input5{
+				width:200px;
+				height:35px;
+				margin:8px 16px;
+			}
+			.d5a{
+				width:400px;
+				height:80px;
+				}
+			.p5{
+				float:left;
+			}
+			#input6{
+				width:200px;
+				height:35px;
+				margin:8px 16px;
+			}
+			#input4{
+				width:100px;
+				height:40px;
+				border:1px solid #7A8F66;
+				border-radius:5px;
+				text-align:center;
+				line-height:40px;
+				font-size:18px;
+				margin-left:100px;
+			}
+			#a1{
+				text-decoration:none;
+			}
+		</style>
+		<script type="text/javascript">
+			function validateForm(){
+			var usernameEle=document.getElementById('input1') ;
+			var usernameEleVal=entities(usernameEle.value);
+			var passwordEle=document.getElementById('input2');
+			var passwordEleVal=entities(passwordEle.value);
+			var passwordEle2=document.getElementById('input3');
+			var passwordEleVal2=entities(passwordEle2.value);
+			if (usernameEleVal.length == 0){
+				window.alert('用户名为必填项!');
+				usernameEle.focus();
+				return false;}
+			if (usernameEleVal.length < 6){
+				window.alert('用户名不能小于6位!');
+				usernameEle.focus();
+				return false;}
+			if (passwordEleVal.length == 0){
+				window.alert('密码为必填项!');
+				passwordEle.focus();
+				return false;}
+			if (passwordEleVal.length < 8){
+				window.alert('密码不能小于8位!');
+				passwordEle.focus();
+				return false;}
+			if (passwordEleVal != passwordEleVal2){
+				window.alert('两次密码不一致！请重新输入!');
+				passwordEle2.value='';
+				passwordEle2.focus();
+				return false;}
+			else{
+				return true}
+			}
+		//将用户名和密码及确认密码中的特殊符号换位对应的HTML实体，以防止SQL注入产生
+		//SQL注入问题必须重视
+		function entities(str){
+			str = str.replace(/&/g,'&amp;');
+			str = str.replace(/'/g,'&#39;');
+			str = str.replace(/"/g,'&quot;');
+			str = str.replace(/>/g,'&gt;');
+			str = str.replace(/</g,'&lt;');
+			str = str.replace(/ /g,'&nbsp;');
+			return str;
+			}
+		</script>
+		<script src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript">
+			function getPasswordStrength(password){
+				var strength=0;
+				$([/.{6,}/,/[0-9]+/,/[a-z]+/,/[A-Z]+/,/[^0-9a-zA-Z]+/]).each(function(i,o){
+					console.log(i,o,strength);
+					if(o.test(password)) strength++;
+				});
+				return strength;
+			}
+			function showStrength(password) {
+				var strength = getPasswordStrength(password);
+				var status = strength < 3 ? 'low' : (strength < 5 ? 'medium' : 'high');
+				var desc = strength < 3 ? '强度很低' : (strength < 5 ? '中等强度' : '高强度');
+				$('#passwordStrength').attr('class',status).html(desc);
+				}
+		</script>
+		<style>
+		/*密码强度样式的定义*/
+		.high{color:green}
+		.medium{color:blue}
+		.low{color:red}
+		</style>
+	</head>
+	<body>
+		<!--页面顶部内容-->
+		<h2>新用户注册</h2>
+		<div class='d1'>
+			<form action="/land/register" method="post" onsubmit='return validateForm()'>
+				<p>{{a}}</p>
+				{% csrf_token %}
+				<!--用户名称-->
+				<div class='d1a'>
+					<p class='p1'>用户名称：</p>
+					<input id='input1' type="text" name="uname" placeholder='6~14位字符' maxlength=14>
+				</div class='d2a'>
+				<!--用户密码-->
+				<div class='d2a'>
+					<p class='p2'>用户密码：</p>
+					<input id='input2' type="password" name="upwd" placeholder='不能超过18位字符' maxlength=18 onkeyup="showStrength(this.value)"/><span id="passwordStrength"></span>
+				</div>
+				<div class='d3a'>
+					<p class='p3'>确认密码：</p>
+					<input id='input3' type="password" name="upwd1" placeholder="必须和以上密码一致" maxlength=18>
+				</div>
+				<div class='d4a'>
+					<p class='p4'>用户昵称：</p>
+					<input type="text" name="nkname" placeholder="给你的账号一个个性昵称吧" maxlength=10 id='input5'>
+				</div>
+				<div class='d5a'>
+					<p class='p5'>电子邮箱：</p>
+					<input type="email" name="uemail" maxlength=40 id='input6' onkeyup=''>
+				</div>
+				<a href="/land/" id='a1'>返回登陆</a>
+				<input type="submit" value='确认注册' id='input4'>
+			</form>
+		</div>
+	</body>
+</html>
